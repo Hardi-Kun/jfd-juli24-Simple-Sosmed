@@ -25,9 +25,9 @@ app.use( session({
         // 1 menit * 60 = 1 jam 
     }
 }))
+
 app.use( passport.initialize())
 app.use( passport.session())
-
 
 
 app.use( express.urlencoded({extended:false}) )
@@ -39,7 +39,7 @@ app.set('views', './view')
 
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
-app.post('/proses-login', c_auth.proses_login)  
+app.post('/proses-login', c_auth.proses_login)      
 app.get('/feed', cek_login, c_feed.index)
 
 app.listen(port, ()=>{
