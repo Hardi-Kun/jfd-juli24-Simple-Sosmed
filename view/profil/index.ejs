@@ -3,6 +3,12 @@
 
         <div class="container pt-3">
             <div class="row d-flex justify-content-center"></div>
+            <% if (message) { %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="fa-solid fa-info-circle me-2"></i><%= (message)  %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div> 
+            <% } %>
             <h1>Profil</h1>
             <div class="card mb-3">
                 <div class="row g-0">
@@ -24,7 +30,7 @@
                             </p>
                             <p class="card-text">
                                 <small class="text-body-secondary">
-                                    Last Update: <%= moment(req.session.user[0].last_update).format('DD MMMM YYYY, HH:mm') %>
+                                    Last Update: <%= moment(req.session.user[0].last_update).startOf('hour').fromNow() %>
                                 </small>
                             </p>
                         </div>

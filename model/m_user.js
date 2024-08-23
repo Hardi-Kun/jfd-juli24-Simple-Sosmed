@@ -9,7 +9,7 @@ module.exports =
         let data = {
             nama_lengkap              : req.body.form_namalengkap,
             bio                       : req.body.form_bio,
-            last_update               : moment().format('YYYY-MM-DD, HH:mm:ss'),
+            last_update               : moment().startOf('hour').fromNow(),
         }
         let id_user = req.session.user[0].id
         return eksekusi(mysql.format(
