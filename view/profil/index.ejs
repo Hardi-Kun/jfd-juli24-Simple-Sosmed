@@ -2,44 +2,45 @@
     <%- include('../template/menu-atas') %>
 
         <div class="container pt-3">
-            <div class="row d-flex justify-content-center"></div>
-            <% if (message) { %>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <i class="fa-solid fa-info-circle me-2"></i><%= (message)  %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div> 
-            <% } %>
-            <h1>Profil</h1>
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <a href="/profil/edit-foto" class="btn btn-sm btn-primary float-end mt-3">
-                            <i class="fa-solid fa-edit"></i>
-                        </a>
-                        <% if ( ! req.session.user[0].foto ) { %>
-                            <img src="/gambar/user-default.png" width="50%" class="img-fluid rounded-start" alt="...">
-                        <% } else { %>
-                            <img src="/upload/<%= req.session.user[0].foto %>" width="50%" class="img-fluid rounded-start" alt="...">
-                        <% } %>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <a href="/profil/edit" class="btn btn-sm btn-primary float-end">
+            <div class="row d-flex justify-content-center">
+                <% if (message) { %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <i class="fa-solid fa-info-circle me-2"></i><%= (message)  %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div> 
+                <% } %>
+                <h1>Profil</h1>
+                <div class="card mb-3 mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <a href="/profil/edit-foto" class="btn btn-sm btn-primary float-end mt-3">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <h5 class="card-title"><%= req.session.user[0].nama_lengkap %></h5>
-                            <p class="card-text">
-                                <%= req.session.user[0].username %>
-                            </p>
-                            <h5 class="card-title">Bio</h5>
-                            <p class="card-text">
-                                <%= req.session.user[0].bio %>
-                            </p>
-                            <p class="card-text">
-                                <small class="text-body-secondary">
-                                    Last Update: <%= moment(req.session.user[0].last_update).startOf('minute').fromNow() %>
-                                </small>
-                            </p>
+                            <% if ( ! req.session.user[0].foto ) { %>
+                                <img src="/gambar/user-default.png" width="50%" class="img-fluid rounded-start" alt="...">
+                            <% } else { %>
+                                <img src="/upload/<%= req.session.user[0].foto %>" width="50%" class="img-fluid rounded-start" alt="...">
+                            <% } %>
+                        </div>
+                        <div class="col-md-8">  
+                            <div class="card-body">
+                                <a href="/profil/edit" class="btn btn-sm btn-primary float-end">
+                                    <i class="fa-solid fa-edit"></i>
+                                </a>
+                                <h5 class="card-title"><%= req.session.user[0].nama_lengkap %></h5>
+                                <p class="card-text">
+                                    <%= req.session.user[0].username %>
+                                </p>
+                                <h5 class="card-title">Bio</h5>
+                                <p class="card-text">
+                                    <%= req.session.user[0].bio %>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">
+                                        Last Update: <%= moment(req.session.user[0].last_update).startOf('minute').fromNow() %>
+                                    </small>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
