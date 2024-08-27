@@ -74,12 +74,12 @@ module.exports =
                         } else {
                             pesan_upload += `<br>Media 3 berhasil upload `
                         }
-                        
+                            
                     })
 
                     //  proses insert ke database
                     let insert = await m_post.insert(req)
-                    if (update.affectedRows > 0) {
+                    if (insert.affectedRows > 0) {
                         return res.redirect(`/feed?msg=berhasil kirim postingan ${pesan_upload}`)
                     }
                 }
