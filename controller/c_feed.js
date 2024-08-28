@@ -1,4 +1,4 @@
-const m_post =  require('../model/m_post')
+const m_post    = require('../model/m_post')
 const moment    = require('moment')
 moment.locale('id')
 

@@ -54,5 +54,16 @@ module.exports =
             let message = 'Sesi anda habis, silakan login ulang.'
             res.redirect(`/login?msg=${message}`)
         }
-    }
+    },
+
+    form_edit_password: function(req,res) {
+        if (req.session.user) {
+            res.redirect('/login')
+        } else {
+            let dataview = {
+                message: req.query.msg
+            }
+            res.render('auth/form-edit-password', dataview)
+        }
+    },
 }
