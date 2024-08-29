@@ -1,6 +1,8 @@
 <%- include('../template/head-start') %>
     <%- include('../template/menu-atas') %>
-
+    <head>
+        <!-- <link rel="stylesheet" href="/custom/sign-in.css"> -->
+    </head>
         <div class="container pt-3">
             <div class="row d-flex justify-content-center">
                 <% if (message) { %>
@@ -40,6 +42,10 @@
                                         Last Update: <%= moment(req.session.user[0].last_update).startOf('minute').fromNow() %>
                                     </small>
                                 </p>
+                                <div class="remember-forgot">
+                                    <a href="/profil/form-edit-password">Edit Password?</a>
+                                </div>
+                
                             </div>
                         </div>
                     </div>
@@ -140,8 +146,8 @@
         </div>
 
         
-        <pre>
+        <!-- <pre>
             <%= JSON.stringify(postingan, null, 4) %>
-        </pre>
+        </pre> -->
 
 <%- include('../template/head-end') %>

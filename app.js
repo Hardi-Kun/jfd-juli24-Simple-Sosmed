@@ -44,17 +44,17 @@ app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
 app.post('/proses-login', c_auth.proses_login)      
 app.get('/feed', cek_login, c_feed.index)
-app.get('/login/form-edit-password', c_auth.form_edit_password )
-app.post('/proses-edit', c_auth.proses_edit)
 
 app.get('/profil', cek_login, c_profil.index)
 app.get('/profil/edit', cek_login, c_profil.form_edit)
 app.post('/profil/proses-update', cek_login, c_profil.proses_update)
 app.get('/profil/edit-foto', cek_login, c_profil.form_edit_foto)
 app.post('/profil/proses-update-foto', cek_login, c_profil.proses_update_foto)
+app.get('/profil/form-edit-password', c_profil.form_edit_password )
+app.post('/proses-edit', c_profil.proses_edit)
 
 app.get('/posting', cek_login, c_posting.index)
-app.post('/posting/tambah', cek_login, c_posting.proses_insert)
+app.post('/login/tambah', cek_login, c_posting.proses_insert)
 
 // app.get('/logout', cek_login, c_auth.) 
 
