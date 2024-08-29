@@ -9,28 +9,31 @@
         <link rel="icon" href="/gambar/teh poci.png">
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="/custom/sign-in.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <script src="/bootstrap/js/bootstrap.js"></script>
     </head>
     <body>
-        <main class="form-signin w-100 m-auto mt-5 pt-5">
+        <main class="form-signin w-100 ">
             <% if (message) { %>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <%= (message)  %>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div> 
             <% } %>
-            <form method="post" action="/proses-login">
+            <form method="post" action="/proses-login" class="wrapper">
                 <img class="mb-4" src="/gambar/teh poci.png" alt="" height="57">
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                <h1 class="h3 mb-3 fw-normal fs-36px ">Login</h1>
             
-                <div class="form-floating">
+                <div class="form-floating " >
                     <input type="text" class="form-control" name="form_username" placeholder="name@example.com">
-                    <label for="floatingInput">Username</label>
+                    <label for="floatingInput"  >Username</label>
+                    <i class='bx bxs-user'></i>
                 </div>
 
-                <div class="form-floating">
+                <div class="form-floating" >
                     <input type="password" class="form-control" name="form_password" placeholder="Password">
                     <label for="floatingPassword">Password</label>
+                    <i class='bx bxs-lock-alt' ></i>
                 </div>
 
                 <div class="remember-forgot">
@@ -38,7 +41,7 @@
                 </div>
 
                 <button class="btn btn-primary w-100 py-2 " type="submit">Masuk</button>
-                <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+                <p class="mt-5 mb-3 text-body-dark">&copy; 2024</p>
             </form>
           </main>
     </body>

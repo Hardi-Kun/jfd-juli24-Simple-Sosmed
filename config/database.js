@@ -19,6 +19,18 @@ function eksekusi(script_sql) {
     })
 }
 
+function update_password(script_sql) {
+    return new Promise((resolve, reject) => {
+        db.query(script_sql, function(errorSql, results) {
+            if (errorSql) {
+                reject(errorSql)
+            } else {
+                resolve(results)
+            }
+        })
+    })
+}
+
 module.exports = {
-    db, eksekusi
+    db, eksekusi, update_password
 }
