@@ -13,7 +13,7 @@
         <script src="/bootstrap/js/bootstrap.js"></script>
     </head>
     <body>
-        <main class="form-signin w-100 ">
+        <main class="form-signin w-100  ">
             <% if (message) { %>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <%= (message)  %>
@@ -21,9 +21,10 @@
                   </div> 
             <% } %>
             <form method="post" action="/proses-login" class="wrapper">
-                <img class="mb-4" src="/gambar/teh poci.png" alt="" height="57">
-                <h1 class="h3 mb-3 fw-normal fs-36px ">Login</h1>
-            
+                <img src="/gambar/zerotwo.gif" class="mb-4" class="zerotwo" height="57">
+                <!-- <img class="mb-4" src="/gambar/teh poci.png" alt="" height="57"> -->
+                <h1 class="h3 mb-3 fw-normal fs-36px "><strong>Login</strong></h1>
+        
                 <div class="form-floating " >
                     <input type="text" class="form-control" name="form_username" placeholder="name@example.com">
                     <label for="floatingInput"  >Username</label>
