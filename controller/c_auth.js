@@ -56,4 +56,10 @@ module.exports =
         }
     },
 
+    proses_logout: function(req,res) {
+        req.session.destroy( (err)=>{
+            res.redirect('/')
+        })
+    }
+
 }

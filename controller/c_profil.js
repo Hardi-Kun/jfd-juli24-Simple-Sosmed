@@ -1,6 +1,6 @@
-const m_user = require('./../model/m_user')
-const m_post = require('../model/m_post')
-const path   = require('path')
+const m_user    = require('./../model/m_user')
+const m_post    = require('../model/m_post')
+const path      = require('path')
 const bcrypt    = require('bcryptjs')
 const mysql     = require('mysql2')
 const db        = require('../config/database').db
@@ -88,7 +88,8 @@ module.exports =
 
     form_edit_password: function(req,res) {
         let dataview = {
-            req: req
+            req: req,
+            message: req.query.msg,
         }
         res.render('profil/form-edit-password', dataview)
     },
@@ -116,30 +117,25 @@ module.exports =
                         let updateResult = await update_password(username, hashedPassword);
     
                         if (updateResult) {
-                            let message = 'Password berhasil diubah!';
-                            res.redirect(`/login?msg=${message}`);
+                            res.redirect(`/login?msg=Password berhasil diubah!`);
                         } else {
-                            let message = 'Terjadi kesalahan saat mengubah password.';
-                            res.redirect(`/profil/form-edit-password?msg=${message}`);
+                            res.redirect(`/profil/form-edit-password?msg=Terjadi kesalahan saat mengubah password.`);
                         }
                     } else {
-                        let message = 'Password baru dan konfirmasi password tidak cocok.';
-                        res.redirect(`/profil/form-edit-password?msg=${message}`);
+                        res.redirect(`/profil/form-edit-password?msg=Password baru dan konfirmasi password tidak cocok.`);
                     }
                 } else {
-                    let message = 'Password saat ini salah.';
-                    res.redirect(`/profil/form-edit-password?msg=${message}`);
+                    res.redirect(`/profil/form-edit-password?msg=Password saat ini salah.`);
                 }
             } else {
-                let message = 'User tidak ditemukan.';
-                res.redirect(`/login?msg=${message}`);
+                res.redirect(`/login?msg=User tidak ditemukan.`);
             }
         } catch (error) {
             console.error("Error:", error);
-            let message = 'Terjadi kesalahan pada server.';
-            res.redirect(`/profil/form-edit-password?msg=${message}`);
+            res.redirect(`/profil/form-edit-password?msg=Terjadi kesalahan pada server.`);
         }
     }
+    
     
     
 }

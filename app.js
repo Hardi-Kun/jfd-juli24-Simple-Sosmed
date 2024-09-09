@@ -3,8 +3,10 @@ const app           = express()
 const port          = 3000
 const passport      = require('passport')
 const cookieParser  = require('cookie-parser')
+const bodyParser    = require('body-parser')
 const session       = require('express-session')
 const fileupload    = require('express-fileupload')
+const path          = require('path')
 
 const c_beranda     = require('./controller/c_beranda')
 const c_auth        = require('./controller/c_auth')
@@ -36,13 +38,16 @@ app.use( passport.session())
 app.use( express.urlencoded({extended:false}) )
 app.use( express.static('public'))
 app.use( fileupload() )
+app.use( bodyParser.urlencoded({ extended: false }))
 
 app.set('view engine', 'ejs')
 app.set('views', './view')
+app.set('views', path.join(__dirname, 'views'))
 
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
-app.post('/proses-login', c_auth.proses_login)      
+app.post('/proses-login', c_auth.proses_login)   
+app.get('/logout', c_auth.proses_logout)   
 app.get('/feed', cek_login, c_feed.index)
 
 app.get('/profil', cek_login, c_profil.index)
@@ -54,7 +59,7 @@ app.get('/profil/form-edit-password', c_profil.form_edit_password )
 app.post('/proses-edit', c_profil.proses_edit)
 
 app.get('/posting', cek_login, c_posting.index)
-app.post('/login/tambah', cek_login, c_posting.proses_insert)
+app.post('/posting/tambah', cek_login, c_posting.proses_insert)
 
 // app.get('/logout', cek_login, c_auth.) 
 
