@@ -25,18 +25,23 @@ module.exports =
             last_update      : moment().format('YYYY-MM-DD HH:mm:ss'),
         }
         let id_user = req.session.user[0].id
-
         return eksekusi(mysql.format(
             `UPDATE user SET ? WHERE id = ?` , 
             [data, id_user]
-        ))
+        ))  
     },
 
     
-    get_password: function(username, newPassword) {
-        return update_password (mysql.format(
-            'UPDATE user SET password = ? WHERE username = ?' ,
-            [newPassword, username]
+    update_password: function(req) { 
+        let data = {
+            password    : req.body.form_password_baru,
+            last_update : moment().format('YYYY-MM-DD HH:mm:ss'),
+        }
+        let id_user = req.session.user[0].id
+        
+        return eksekusi (mysql.format(
+            'UPDATE user SET ? WHERE id = ?' ,
+            [data, id_user]
         ))
     }
 

@@ -42,7 +42,7 @@ app.use( bodyParser.urlencoded({ extended: false }))
 
 app.set('view engine', 'ejs')
 app.set('views', './view')
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'view'))
 
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
@@ -56,7 +56,7 @@ app.post('/profil/proses-update', cek_login, c_profil.proses_update)
 app.get('/profil/edit-foto', cek_login, c_profil.form_edit_foto)
 app.post('/profil/proses-update-foto', cek_login, c_profil.proses_update_foto)
 app.get('/profil/form-edit-password', c_profil.form_edit_password )
-app.post('/proses-edit', c_profil.proses_edit)
+app.post('/proses-edit', c_profil.proses_update_password)
 
 app.get('/posting', cek_login, c_posting.index)
 app.post('/posting/tambah', cek_login, c_posting.proses_insert)
@@ -66,3 +66,4 @@ app.post('/posting/tambah', cek_login, c_posting.proses_insert)
 app.listen(port, ()=>{
     console.log(`Aplikasi sudah siap, buka http://localhost:${port}`)
 })
+
