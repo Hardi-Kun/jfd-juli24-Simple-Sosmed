@@ -1,6 +1,6 @@
 const bcrypt    = require('bcryptjs')
 const mysql     = require('mysql2')
-const m_post    = require('../model/m_post')
+const m_user    = require('../model/m_user')
 const db        = require('../config/database').db
 const eksekusi  = require('../config/database').eksekusi
 

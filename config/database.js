@@ -20,33 +20,6 @@ function eksekusi(script_sql) {
 }
 
 
-// function update_password(username, hashedPassword) {
-//     return new Promise((resolve, reject) => {
-//         const query = "UPDATE user SET password = ? WHERE username = ?";
-//         db.query(query, [hashedPassword, username], (error, results) => {
-//             if (error) {
-//                 reject(error);
-//             } else {
-//                 resolve(results.affectedRows > 0); // Mengembalikan true jika ada baris yang diperbarui
-//             }
-//         });
-//     });
-// };
-
-// const cari_username = async (username) => {
-//     return new Promise((resolve, reject) => {
-//         const query = "SELECT * FROM users WHERE username = ?";
-//         db.query(query, [username], (err, results) => {
-//             if (err) {
-//                 return reject(err);
-//             }
-//             resolve(results);
-//         })
-//     })
-// }
-
-
-
 module.exports = {
     db, eksekusi, 
 }   

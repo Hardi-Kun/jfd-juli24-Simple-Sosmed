@@ -1,6 +1,6 @@
 const mysql           = require('mysql2')
 const eksekusi        = require('../config/database').eksekusi
-const update_password = require('../config/database').update_password
+const db              = require('../config/database').db
 const moment          = require('moment')
 moment.locale('id')
 
@@ -29,20 +29,32 @@ module.exports =
             `UPDATE user SET ? WHERE id = ?` , 
             [data, id_user]
         ))  
-    },
+    },      
 
-    
-    update_password: function(req) { 
-        let data = {
-            password    : req.body.form_password_baru,
-            last_update : moment().format('YYYY-MM-DD HH:mm:ss'),
+
+    update_password: async function(req, hashedPassword) { 
+        let sqlData = {
+            username    : req.body.form_username,   
+            password    : hashedPassword,
         }
-        let id_user = req.session.user[0].id
+        let id_user = req.session.user?.[0]?.id
+
+        let sqlSyntax = mysql.format (
+            `UPDATE user SET ? WHERE id = ?`,
+            [sqlData, id_user]
+        )
+        return eksekusi (sqlSyntax)
+
+        // let data = {
+        //     password    : req.body.form_password_baru,
+        //     last_update : moment().format('YYYY-MM-DD HH:mm:ss'),
+        // }
+        // let id_user = req.session.user[0].id
         
-        return eksekusi (mysql.format(
-            'UPDATE user SET ? WHERE id = ?' ,
-            [data, id_user]
-        ))
+        // return eksekusi (mysql.format(
+        //     'UPDATE user SET ? WHERE id = ?' ,
+        //     [data, id_user]
+        // ))
     }
 
 }

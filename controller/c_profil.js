@@ -3,30 +3,28 @@ const m_post    = require('../model/m_post')
 const path      = require('path')
 const bcrypt    = require('bcryptjs')
 const mysql     = require('mysql2')
-const db        = require('../config/database').db
-const eksekusi  = require('../config/database').eksekusi
 const moment    = require('moment')
 moment.locale('id')
 
-let cari_password = async function(username) {
-    try {
-        // Definisikan query untuk mencari user berdasarkan username
-        let query = `SELECT * FROM user WHERE username = ?`; 
+// let cari_password = async function(username) {
+//     try {
+//         // Definisikan query untuk mencari user berdasarkan username
+//         let query = `SELECT * FROM user WHERE username = ?`; 
 
-        // Eksekusi query dan format dengan parameter username
-        let user = await eksekusi(mysql.format(query, [username])); 
+//         // Eksekusi query dan format dengan parameter username
+//         let user = await eksekusi(mysql.format(query, [username])); 
 
-        if (user.length > 0) {
-            return user[0];  // Jika user ditemukan, kembalikan data user
-        } else {
-            return null;  // Jika user tidak ditemukan, kembalikan null
-        }
-    } catch (error) {
-        // Log error jika terjadi kesalahan
-        console.log("Error saat mencari user:", error);
-        return null;
-    }
-};
+//         if (user.length > 0) {
+//             return user[0];  // Jika user ditemukan, kembalikan data user
+//         } else {
+//             return null;  // Jika user tidak ditemukan, kembalikan null
+//         }
+//     } catch (error) {
+//         // Log error jika terjadi kesalahan
+//         console.log("Error saat mencari user:", error);
+//         return null;
+//     }
+// };
 
 
 
@@ -109,50 +107,72 @@ module.exports =
     },
 
     proses_update_password: async function(req, res) {
-        let username = req.body.form_username;  // Ambil username dari form body
-        let password_lama = req.body.form_password_lama;
-        let password_baru = req.body.form_password_baru;
-    
-        // Logging untuk debugging
-        console.log("Username dari form:", username);
-    
-        // Cari user berdasarkan username
-        let user = await cari_password(username);
-    
-        // Logging hasil pencarian user
-        console.log("Hasil dari cari_password:", user);
-    
-        if (user) {  // Cek apakah user ditemukan
-            // Cek apakah password lama cocok dengan password di database
-            let passwordCocok = bcrypt.compareSync(password_lama, user.password);
-            if (passwordCocok) {
-                // Cek apakah password baru berbeda dari password lama
-                if (password_lama !== password_baru) {
-                    // Hash password baru sebelum menyimpannya di database
-                    let hashedPassword = bcrypt.hashSync(password_baru, 10);
-    
-                    // Panggil fungsi update_password untuk memperbarui password di database
-                    
-                    let updateResult = await m_user.update_password(username, hashedPassword);
-    
-                    if (updateResult.affectedRows > 0) {
-                        req.session.user[0].password = hashedPassword
-                        let message = 'Password berhasil diganti!';
-                        res.redirect(`/profil?msg=${message}`);
-                    } else {
-                        let message = 'Gagal mengganti password, silakan coba lagi.';
-                        res.redirect(`/profil/form-edit-password?msg=${message}`);
-                    }
-                } else {
-                    res.redirect(`/profil/form-edit-password?msg=Password baru tidak boleh sama dengan password lama.`);
-                }
-            } else {
-                res.redirect(`/profil/form-edit-password?msg=Password saat ini salah.`);
-            }
-        } else {
-            let message = 'Username tidak ditemukan, silakan ulangi kembali!';
-            res.redirect(`/profil/form-edit-password?msg=${message}`);
+        console.log(req.body);
+
+        let { form_username,form_password } = req.body;
+
+        if (!form_username || !form_password) {
+            res.redirect('/profil/form-edit-password?msg=Semua harus diisi!');
+            return;
         }
+
+        // Hash the password
+        let hashedPassword = bcrypt.hashSync(form_password, 10);
+        console.log('Hashed Password:', hashedPassword);
+
+        try {
+            let update = await m_user.update_password(req, hashedPassword)
+            console.log('Update Result:', update)
+            if (update && update.affectedRows > 0) {
+                // ubah data session yg lama
+                req.session.user[0].password = hashedPassword
+                console.log('Password update successful');
+                res.redirect('/profil?msg=Berhasil update password')
+            } else {
+                console.log('Password update failed: No rows affected');
+                res.redirect('/profil/form-edit-password?msg=Gagal Perbarui update password')
+            }
+        } catch (error) {
+            console.error('Caught Error:', error);
+            res.redirect('/profil/form-edit-password?msg=Ada yang eror!!')
+        }
+    
+        // // Cari user berdasarkan username
+        // let user = await cari_password(username);
+    
+        // // Logging hasil pencarian user
+        // console.log("Hasil dari cari_password:", user);
+        // if (user) {  // Cek apakah user ditemukan
+        //     // Cek apakah password lama cocok dengan password di database
+        //     let passwordCocok = bcrypt.compareSync(password_lama, user.password);
+        //     if (passwordCocok) {
+        //         // Cek apakah password baru berbeda dari password lama
+        //         if (password_lama !== password_baru) {
+        //             // Hash password baru sebelum menyimpannya di database
+        //             let hashedPassword = bcrypt.hashSync(password_baru, 10);
+    
+        //             // Panggil fungsi update_password untuk memperbarui password di database
+                    
+        //             let updateResult = await m_user.update_password(username, hashedPassword);
+    
+        //             if (updateResult.affectedRows > 0) {
+        //                 req.session.user[0].password = hashedPassword
+        //                 let message = 'Password berhasil diganti!';
+        //                 res.redirect(`/profil?msg=${message}`);
+        //             } else {
+        //                 let message = 'Gagal mengganti password, silakan coba lagi.';
+        //                 res.redirect(`/profil/form-edit-password?msg=${message}`);
+        //             }
+        //         } else {
+        //             res.redirect(`/profil/form-edit-password?msg=Password baru tidak boleh sama dengan password lama.`);
+        //         }
+        //     } else {
+        //         res.redirect(`/profil/form-edit-password?msg=Password saat ini salah.`);
+        //     }
+        // } else {
+        //     let message = 'Username tidak ditemukan, silakan ulangi kembali!';
+        //     res.redirect(`/profil/form-edit-password?msg=${message}`);
+        // }
     }
     
 }
