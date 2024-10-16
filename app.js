@@ -44,6 +44,10 @@ app.set('view engine', 'ejs')
 app.set('views', './view')
 app.set('views', path.join(__dirname, 'view'))
 
+app.get('/signup', c_auth.form_signup)
+app.post('/proses-signup', c_auth.proses_signup)
+
+
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
 app.post('/proses-login', c_auth.proses_login)   

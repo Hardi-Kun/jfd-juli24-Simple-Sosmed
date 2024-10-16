@@ -22,10 +22,9 @@
             <% } %>
             <form method="post" action="/proses-login" class="wrapper">
                 <img src="/gambar/zerotwo.gif" class="mb-4" class="zerotwo" height="57">
-                <!-- <img class="mb-4" src="/gambar/teh poci.png" alt="" height="57"> -->
                 <h1 class="h3 mb-3 fw-normal fs-36px "><strong>Login</strong></h1>
         
-                <div class="form-floating " >
+                <div class="form-floating" >
                     <input type="text" class="form-control" name="form_username" placeholder="name@example.com">
                     <label for="floatingInput"  >Username</label>
                     <i class='bx bxs-user'></i>
@@ -37,10 +36,17 @@
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
 
-                <button class="btn btn-primary w-100 py-2 " type="submit">Masuk</button>
+                <button class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
             </form>
-            <p class="mt-3 mb-3 text-dark">&copy; 2024</p>
-          </main>
+            <div  class="remember-forgot ">
+                <a href="/signup" class="">
+                    <button class="btn btn-primary w-100 py-2">
+                        Sign Up
+                    </button>
+                </a>
+            </div>
+        </main>
+        <p class="mt-3 mb-3 text-white">&copy; 2024</p>
     </body>
 </html>
 

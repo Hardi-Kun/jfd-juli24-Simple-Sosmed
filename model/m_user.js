@@ -44,17 +44,26 @@ module.exports =
             [sqlData, id_user]
         )
         return eksekusi (sqlSyntax)
+    },
 
-        // let data = {
-        //     password    : req.body.form_password_baru,
-        //     last_update : moment().format('YYYY-MM-DD HH:mm:ss'),
-        // }
-        // let id_user = req.session.user[0].id
-        
-        // return eksekusi (mysql.format(
-        //     'UPDATE user SET ? WHERE id = ?' ,
-        //     [data, id_user]
-        // ))
-    }
+
+    insert_user: function(user) {
+        let data = {
+            username: user.username,
+            password: user.password,
+            nama_lengkap: user.nama_lengkap,
+        };
+        return eksekusi(mysql.format(
+            `INSERT INTO user SET ?`,
+            [data]
+        ));
+    },
+
+    // get_oneUser: function(id) {
+    //     return eksekusi(mysql.format(
+    //         `SELECT * FROM user WHERE id = ?`,
+    //     [id]
+    //     ))
+    // },
 
 }
